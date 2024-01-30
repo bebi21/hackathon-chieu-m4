@@ -3,6 +3,7 @@ import {
   addTodos,
   renderQuestion,
   updateTodo,
+  renderAnswer,
 } from "../repository/todolist.repository";
 
 export const addNewToDo = async (req: Request, res: Response) => {
@@ -14,8 +15,22 @@ export const addNewToDo = async (req: Request, res: Response) => {
 };
 
 export const render = async (req: Request, res: Response) => {
-  const result = await renderQuestion();
-  res.status(200).json(result);
+  const title = req.body;
+  console.log(title);
+
+  const result = await renderQuestion(title);
+  res.status(200).json({
+    data: result,
+    message: "thanh  cong",
+  });
+};
+export const renderA = async (req: Request, res: Response) => {
+  const result = await renderAnswer();
+
+  res.status(200).json({
+    data: result,
+    message: "thanh  cong",
+  });
 };
 
 export const updateTodo1 = async (req: Request, res: Response) => {

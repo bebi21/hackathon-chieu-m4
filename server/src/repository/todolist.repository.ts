@@ -8,9 +8,21 @@ async function addTodos(title: string) {
   );
   return result;
 }
-async function renderQuestion() {
-  const [result]: any = await database.execute("select * from  question");
+async function renderQuestion(title: any) {
+  const [result]: any = await database.execute(
+    `SELECT * FROM question WHERE category_id = ${title.category} AND level = ${title.difficulty} LIMIT ${title.amount}`,
+  );
   console.log(result);
+  return result;
+  // const [result]: any = await database.execute(
+  //   "SELECT question.content_question, answer.content_answer,answer.status FROM question INNER JOIN answer ON question.question_id = answer.question_id;",
+  // );
+  // console.log(result);
+  // return result;
+}
+async function renderAnswer() {
+  const [result]: any = await database.execute("select * from  answer");
+
   return result;
 }
 
@@ -21,4 +33,4 @@ async function updateTodo(title: string, id: number) {
   );
   return result;
 }
-export { addTodos, renderQuestion, updateTodo };
+export { addTodos, renderQuestion, updateTodo, renderAnswer };
